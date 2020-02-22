@@ -10,7 +10,7 @@ public class Atom : MonoBehaviour
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            if (colorType == other.gameObject.GetComponent<Obstacle>().colorType)
+            if (colorType == other.gameObject.GetComponent<ObstacleComponent>().colorType)
                 ScoreManager.Instance.IncrementScore(100);
             else
                 GameController.Instance.GameOver = true;

@@ -7,9 +7,10 @@ public class SpinController : MonoBehaviour
     public GameObject CameraObject;
 
 
-    public List<GameObject> Beams;
+    public List<GameObject> Atoms;
 
 
+    public float MinRangeAtomColorBlend = 0.1f;
 
     public GameObject left;
     public GameObject right;
@@ -65,6 +66,70 @@ public class SpinController : MonoBehaviour
         CameraObject.transform.position = new Vector3(CameraObject.transform.position.x, newY, CameraObject.transform.position.z);
 
 
+
+        // color change ???
+        if (Atoms != null && Atoms.Count > 1)
+        {
+
+
+            var left = Atoms[0];
+            var right = Atoms[1];
+            float rangeX = Mathf.Abs(right.transform.position.x - left.transform.position.x);
+            float rangeY = Mathf.Abs(right.transform.position.z - left.transform.position.z);
+
+            float range = Mathf.Sqrt(rangeX * rangeX + rangeY * rangeY);
+            if (range <= MinRangeAtomColorBlend)
+            {
+                float dist = (1.0f - range / MinRangeAtomColorBlend);
+
+                var leftc = Color.Lerp(Color.red, Color.magenta, dist);
+                var rightc = Color.Lerp(Color.blue, Color.magenta, dist);
+
+                left.GetComponent<SpriteRenderer>().color = leftc;
+                left.GetComponent<TrailRenderer>().startColor = leftc;
+                left.GetComponent<TrailRenderer>().endColor = leftc;
+
+
+                right.GetComponent<SpriteRenderer>().color = rightc;
+                right.GetComponent<TrailRenderer>().startColor = rightc;
+                right.GetComponent<TrailRenderer>().endColor = rightc;
+
+                //if (range < 0.25)
+                //{
+                //    float newX = (left.transform.position.x + right.transform.position.x) / 2f;
+                //    left.transform.position = new Vector2(newX, left.transform.position.y);
+                //    right.transform.position = new Vector2(newX, right.transform.position.y);
+                //    //left.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                //    //right.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                //}
+            }
+            else
+            {
+                var leftc = Color.red;// Color.Lerp(, Color.magenta, dist);
+                var rightc = Color.blue;// Color.Lerp(, Color.magenta, dist);
+
+                left.GetComponent<SpriteRenderer>().color = leftc;
+                left.GetComponent<TrailRenderer>().startColor = leftc;
+                left.GetComponent<TrailRenderer>().endColor = leftc;
+
+
+                right.GetComponent<SpriteRenderer>().color = rightc;
+                right.GetComponent<TrailRenderer>().startColor = rightc;
+                right.GetComponent<TrailRenderer>().endColor = rightc;
+
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         // ftf control range with some buttons ?
         float vx = Input.GetAxis("Vertical") * vfactor * Time.deltaTime ;
         if (Mathf.Abs(Range) <= MaxAbsRange ||  (Range * vx < 0))
@@ -113,13 +178,13 @@ public class SpinController : MonoBehaviour
 
 
 
-        if (Beams != null && Beams.Count > 0)
+        if (Atoms != null && Atoms.Count > 0)
         {
             float exAngle = currentAngle;
 
-            for (int i = 0; i < Beams.Count; i++)
+            for (int i = 0; i < Atoms.Count; i++)
             {
-                var beam = Beams[i];
+                var beam = Atoms[i];
                 if (beam == null) continue;
 
                 float x0 = Range * Mathf.Cos(exAngle);
@@ -128,24 +193,24 @@ public class SpinController : MonoBehaviour
 
                 beam.transform.position = new Vector3(x0 + BaseX, beam.transform.position.y, y0);
 
-                exAngle -= Mathf.PI * 2 / Beams.Count;
+                exAngle -= Mathf.PI * 2 / Atoms.Count;
             }
         }
-        else
-        {
-
-            float exAngle = currentAngle - Mathf.PI;
-
-            float x0 = Range * Mathf.Cos(currentAngle);
-            float y0 = Range * Mathf.Sin(currentAngle) / zAxisDivider;
-
-            float x1 = Range * Mathf.Cos(exAngle);
-            float y1 = Range * Mathf.Sin(exAngle) / zAxisDivider;
-
-            left.transform.position = new Vector3(x0 + BaseX, left.transform.position.y, y0);
-            right.transform.position = new Vector3(x1 + BaseX, right.transform.position.y, y1);
-
-        }
+         else
+         {
+         
+             float exAngle = currentAngle - Mathf.PI;
+         
+             float x0 = Range * Mathf.Cos(currentAngle);
+             float y0 = Range * Mathf.Sin(currentAngle) / zAxisDivider;
+         
+             float x1 = Range * Mathf.Cos(exAngle);
+             float y1 = Range * Mathf.Sin(exAngle) / zAxisDivider;
+         
+             left.transform.position = new Vector3(x0 + BaseX, left.transform.position.y, y0);
+             right.transform.position = new Vector3(x1 + BaseX, right.transform.position.y, y1);
+         
+         }
 
 
 
