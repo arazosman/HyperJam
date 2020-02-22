@@ -13,10 +13,19 @@ public class ObstacleComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(autoAssignRandomColor)
-            SetGameColor( GameColors.Instance.RandomColorType);
-        else
+        if (autoAssignRandomColor)
+        {
+            colorType = GameColors.Instance.RandomColorType;
             SetGameColor(colorType);
+
+        }
+        else
+        {
+            SetGameColor(colorType);
+        }
+          
+        
+      
 
     }
 
@@ -30,7 +39,7 @@ public class ObstacleComponent : MonoBehaviour
 
     public void SetGameColor(ColorType colorType)
     {
-        colorType = colorType;
+   
         GetComponent<SpriteRenderer>().color = GameColors.Instance.ColorList[(int)colorType];
     }
 }

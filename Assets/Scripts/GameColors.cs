@@ -24,24 +24,14 @@ public class GameColors : MonoSingleton<GameColors>
     public Dictionary<ColorType, Color> ColorDict = new Dictionary<ColorType, Color>();
     public List< Color> ColorList = new List<Color>();
 
-
-
-    //public Color32 RandomColor
-    //{
-    //    get
-    //    {
-    //        int count = ColorList.Count;
-    //        int index = Random.Range(0, count);
-    //        return ColorList[index];
-    //    }
-    //}
+ 
 
     public ColorType RandomColorType
     {
         get
         {
             int count = ColorList.Count;
-            int index = Random.Range(0,(int)ColorType.ColorCount);
+            int index = Random.Range(0, count);
             return (ColorType)index;
         }
     }
@@ -55,6 +45,7 @@ public class GameColors : MonoSingleton<GameColors>
 
         ColorDict.Add(ColorType.Red, Color1);
         ColorList.Add( Color1);
+
         ColorDict.Add(ColorType.Blue, Color2);
         ColorList.Add( Color2);
     }
