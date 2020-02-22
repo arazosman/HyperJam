@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4688178862278250548}
   - component: {fileID: 2716587173119553649}
   - component: {fileID: 4112322946769355284}
+  - component: {fileID: 1539375426527784520}
   - component: {fileID: -3609216024492543152}
   m_Layer: 0
   m_Name: Atom
@@ -121,6 +122,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1539375426527784520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688178862278250547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a279b583f39a64f8461e21db505c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-3609216024492543152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c2244bf2d3ac946a36d4beccc6574d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0

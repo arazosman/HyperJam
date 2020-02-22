@@ -20,26 +20,22 @@ public class AtomMovement : MonoBehaviour
     {
         if (rb.velocity.x == 0)
             CheckInput();
-        else
-            CheckEdges();
     }
 
     private void CheckInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (direction == Direction.Right)
-                rb.velocity = new Vector2(10, 0);
-            else
+            if (direction == Direction.Left)
+            {
                 rb.velocity = new Vector2(-10, 0);
-
-            direction = direction == Direction.Left ? Direction.Right : Direction.Left;
+                direction = Direction.Right;
+            }
+            else
+            {
+                rb.velocity = new Vector2(10, 0);
+                direction = Direction.Left;
+            }
         }
-    }
-
-    private void CheckEdges()
-    {
-        if (transform.position == initPos)
-            rb.velocity = Vector2.zero;
     }
 }
