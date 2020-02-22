@@ -82,8 +82,11 @@ public class SpinController : MonoBehaviour
             {
                 float dist = (1.0f - range / MinRangeAtomColorBlend);
 
-                var leftc = Color.Lerp(Color.red, Color.magenta, dist);
-                var rightc = Color.Lerp(Color.blue, Color.magenta, dist);
+
+                
+                var leftc = Color.Lerp( GameColors.Instance.GetColor(left.GetComponent<Atom>().colorType) , Color.magenta, dist);
+                var rightc = Color.Lerp( GameColors.Instance.GetColor(right.GetComponent<Atom>().colorType) , Color.magenta, dist);
+             
 
                 left.GetComponent<SpriteRenderer>().color = leftc;
                 left.GetComponent<TrailRenderer>().startColor = leftc;
@@ -105,8 +108,8 @@ public class SpinController : MonoBehaviour
             }
             else
             {
-                var leftc = Color.red;// Color.Lerp(, Color.magenta, dist);
-                var rightc = Color.blue;// Color.Lerp(, Color.magenta, dist);
+                var leftc = GameColors.Instance.GetColor(left.GetComponent<Atom>().colorType);//Color.red;// Color.Lerp(, Color.magenta, dist);
+                var rightc = GameColors.Instance.GetColor(right.GetComponent<Atom>().colorType);//Color.blue;// Color.Lerp(, Color.magenta, dist);
 
                 left.GetComponent<SpriteRenderer>().color = leftc;
                 left.GetComponent<TrailRenderer>().startColor = leftc;

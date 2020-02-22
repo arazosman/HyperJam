@@ -39,31 +39,43 @@ public class ScrollerStatic : MonoBehaviour
     void Update()
     {
         var val = speed * Time.deltaTime;
+        var vecx = lowerObject.transform.InverseTransformPoint(lowerObject.transform.position);
+        
+        Debug.Log($"BU {lowerObject.transform.localPosition} boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
 
+
+
+       
         upperObject.transform.position = new Vector3(upperObject.transform.position.x,
                 upperObject.transform.position.y - val,
                 upperObject.transform.position.z);
         lowerObject.transform.position = new Vector3(lowerObject.transform.position.x,
                 lowerObject.transform.position.y - val,
                 lowerObject.transform.position.z);
+       
+       
 
 
-        if (lowerObject.transform.position.y <= -height/2 )
-        {
-            lowerObject.transform.position = new Vector3(lowerObject.transform.position.x,
-                initUpperY,
-                lowerObject.transform.position.z);
 
-            Debug.Log("bir giris eylemi erceklesti");
-             var temp = upperObject;
-             upperObject = lowerObject;
-             lowerObject = temp;
-        }else
-        {
-
-            Debug.Log($"BU boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
-            
-        }
+       if (lowerObject.transform.localPosition.y <= -height/2 )
+       {
+       
+           Debug.Log("bir giris eylemi erceklesti");
+       
+           lowerObject.transform.position = new Vector3(lowerObject.transform.position.x,
+               lowerObject.transform.position.y + 2* height,
+               lowerObject.transform.position.z);
+       
+          
+              var temp = upperObject;
+              upperObject = lowerObject;
+              lowerObject = temp;
+       }else
+       {
+       
+           Debug.Log($"BU boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
+           
+       }
 
         //if (upperObject.transform.position.y <= -height / 2)
         //{

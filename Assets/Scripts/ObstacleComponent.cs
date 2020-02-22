@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameColors;
 
 public class ObstacleComponent : MonoBehaviour
 {
@@ -13,10 +14,9 @@ public class ObstacleComponent : MonoBehaviour
     void Start()
     {
         if(autoAssignRandomColor)
-            SetColorType(Random.value > 0.5 ? ColorType.Blue : ColorType.Red);
+            SetGameColor( GameColors.Instance.RandomColorType);
         else
-            SetColorType(colorType);
-
+            SetGameColor(colorType);
 
     }
 
@@ -28,22 +28,9 @@ public class ObstacleComponent : MonoBehaviour
         
     }
 
-    public void SetColorType(ColorType colorType)
+    public void SetGameColor(ColorType colorType)
     {
-        
-
-        this.colorType = colorType;
-
-        switch (colorType)
-        {
-            case ColorType.Red:
-                GetComponent<SpriteRenderer>().color = Color.red;
-                break;
-            case ColorType.Blue:
-                GetComponent<SpriteRenderer>().color = Color.blue;
-                break;
-            default:
-                break;
-        }
+        colorType = colorType;
+        GetComponent<SpriteRenderer>().color = GameColors.Instance.ColorList[(int)colorType];
     }
 }
