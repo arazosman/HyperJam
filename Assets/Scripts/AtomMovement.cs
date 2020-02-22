@@ -28,16 +28,18 @@ public class AtomMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (transform.position.x < 0)
+            if (direction == Direction.Right)
                 rb.velocity = new Vector2(10, 0);
             else
                 rb.velocity = new Vector2(-10, 0);
+
+            direction = direction == Direction.Left ? Direction.Right : Direction.Left;
         }
     }
 
     private void CheckEdges()
     {
-        if (transform.position == initPos || (direction == Direction.Right && transform.position.x > 0) || (direction == Direction.Left && transform.position.x < 0))
+        if (transform.position == initPos)
             rb.velocity = Vector2.zero;
     }
 }
