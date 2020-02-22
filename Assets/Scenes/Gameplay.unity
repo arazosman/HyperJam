@@ -158,6 +158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftAtom
       objectReference: {fileID: 0}
+    - target: {fileID: 4688178862278250548, guid: 8cc9949b450258246a2f715831f44791,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4688178862278250551, guid: 8cc9949b450258246a2f715831f44791,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -630,6 +635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688178862278250548, guid: 8cc9949b450258246a2f715831f44791,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4688178862278250551, guid: 8cc9949b450258246a2f715831f44791,
         type: 3}
