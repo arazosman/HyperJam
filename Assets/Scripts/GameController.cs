@@ -16,7 +16,7 @@ public class GameController : MonoSingleton<GameController>
     public UnityStandardAssets.CinematicEffects.Bloom Bloom;
 
 
-
+    public GameObject pausePanel;
     public Slider PowerUpBar;
 
 
@@ -154,6 +154,8 @@ public class GameController : MonoSingleton<GameController>
             PowerupCount++;
             if (PowerupCount >= powerupNeedCount)
             {
+                if (Settings.Instance.Vibration)
+                    Handheld.Vibrate();
 
                 var am = AudioManager.Instance;
                 am.src.PlayOneShot(am.powerup_active);
@@ -177,6 +179,12 @@ public class GameController : MonoSingleton<GameController>
             }
         }
 
+    }
+
+    public void OpenPauseMenu()
+    {
+        pausePanel.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public IEnumerator DisablePowerUp()

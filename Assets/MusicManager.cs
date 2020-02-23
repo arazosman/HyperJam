@@ -31,14 +31,14 @@ public class MusicManager : MonoSingleton<MusicManager>
 
 
         if (!Settings.Instance.Sound)
-        {
-            musicSource.volume = 0;
-            powerUpSource.volume = 0;
-        }
+            SetSounds(0);
 
-            musicSource.Play();
+        musicSource.Play();
 
     }
-
- 
+    public void SetSounds(int value)
+    {
+        musicSource.volume = value;
+        powerUpSource.volume = value;
+    }
 }

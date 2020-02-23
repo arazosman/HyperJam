@@ -82,9 +82,6 @@ public class Atom : MonoBehaviour
 
 
    
-
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("other tab" + other.gameObject.tag);
@@ -140,7 +137,7 @@ public class Atom : MonoBehaviour
                 {
 
                    // other.gameObject.activeInHierarchy
-                   if(this.transform.position.z < 10.0)
+                   if(this.transform.position.z > 10.0)
                     {
                         Debug.Log("destroy delayed");
 
@@ -183,6 +180,9 @@ public class Atom : MonoBehaviour
 
         DoExplodeEfecet(obj);
         GameController.Instance.GameOver = true;
+
+        if(Settings.Instance.Vibration)
+            Handheld.Vibrate();
     }
 
 

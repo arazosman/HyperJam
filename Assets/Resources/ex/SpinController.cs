@@ -53,7 +53,27 @@ public class SpinController : MonoSingleton<SpinController>
     public float DesiredRange = 0;
     void Start()
     {
+        currentAngle = 0;
         DesiredRange = Range;
+
+        if (Atoms != null && Atoms.Count > 0)
+        {
+            float exAngle = currentAngle;
+
+            for (int i = 0; i < Atoms.Count; i++)
+            {
+                var beam = Atoms[i];
+                if (beam == null) continue;
+
+                float x0 = Range * Mathf.Cos(exAngle);
+                float y0 = Range * Mathf.Sin(exAngle) / zAxisDivider;
+
+
+                beam.transform.position = new Vector3(x0 + BaseX, beam.transform.position.y, y0);
+
+                exAngle -= Mathf.PI * 2 / Atoms.Count;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +83,10 @@ public class SpinController : MonoSingleton<SpinController>
 
     public float lastUserRotationSign = 1;
 
+    public bool useTouch = false;
+
+
+    public float lastAxis = 0;
     void Update()
     {
 
@@ -143,14 +167,48 @@ public class SpinController : MonoSingleton<SpinController>
 
 
         // ftf control range with some buttons ?
-        float vx =   Input.GetAxis("Vertical") * vfactor * Time.deltaTime ;
-        if (Mathf.Abs(Range) <= MaxAbsRange ||  (Range * vx < 0))
-            Range += vx;
+        //
 
 
 
         var axis = Input.GetAxis("Horizontal");
+        if (useTouch)
+        {
+            if (Input.touchCount > 0)
 
+
+            {
+
+                for (int i = 0; i < Input.touchCount; i++)
+                {
+                    var touchPosition = Input.GetTouch(i).position;
+
+
+
+                    if (Mathf.Abs(touchPosition.x - Screen.width / 2) < Screen.width * 0.2)
+                    {
+                        //float vx = Input.GetAxis("Vertical") * vfactor * Time.deltaTime;
+
+                        var axisYx = Time.deltaTime * -1 * 6;
+
+
+                        if (Mathf.Abs(Range) <= MaxAbsRange || (Range * axisYx < 0))
+                            Range += axisYx;
+                    }
+                    else
+                    {
+                        axis = touchPosition.x > Screen.width / 2 ? 1 : -1;
+
+                    }
+                }
+            }
+            else
+            {
+                axis = Mathf.Lerp(axis  ,  0  ,Time.deltaTime *20);
+            }
+        }
+
+        lastAxis = axis;
 
         if (axis != 0)
         {
@@ -166,7 +224,7 @@ public class SpinController : MonoSingleton<SpinController>
         else
         {
             //var diff = Mathf.Abs(DesiredRange - Range);
-            //if (diff > 0)
+            if (Range !=  DesiredRange)
             {
                 //diff = Mathf.Max(0.2f, diff);
 
@@ -175,6 +233,10 @@ public class SpinController : MonoSingleton<SpinController>
             }
 
         }
+
+        var axisY = Input.GetAxis("Vertical"); 
+        if (Mathf.Abs(Range) <= MaxAbsRange || (Range * axisY < 0))
+            Range += axisY;
 
 
         //if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) 
