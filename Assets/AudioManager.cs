@@ -28,6 +28,12 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         src = GetComponent<AudioSource>();
 
+
+        if (!Settings.Instance.Sound)
+        {
+            src.volume = 0;
+        }
+
     }
 
 

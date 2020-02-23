@@ -16,6 +16,9 @@ public class MusicManager : MonoSingleton<MusicManager>
 
     void Start()
     {
+
+      
+
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
         musicSource.clip = music;
@@ -27,7 +30,14 @@ public class MusicManager : MonoSingleton<MusicManager>
         powerUpSource.clip = powerUp;
 
 
-        musicSource.Play();
+        if (!Settings.Instance.Sound)
+        {
+            musicSource.volume = 0;
+            powerUpSource.volume = 0;
+        }
+
+            musicSource.Play();
+
     }
 
  
