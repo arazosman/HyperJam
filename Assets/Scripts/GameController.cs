@@ -14,7 +14,7 @@ public class GameController : MonoSingleton<GameController>
 
 
 
- 
+    private bool powerupEnabled = false;
 
 
 
@@ -64,4 +64,5 @@ public class GameController : MonoSingleton<GameController>
     }
 
     public bool GameOver { get => gameOver; set => gameOver = value; }
+    public bool PowerupEnabled { get => powerupEnabled; set => powerupEnabled = value; }
 }

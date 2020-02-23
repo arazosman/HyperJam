@@ -61,7 +61,7 @@ public class Atom : MonoBehaviour
         {
             GameObject firework = Instantiate(CrushEffect, other.transform.position, Quaternion.identity);
 
-            var attractor = firework.GetComponent<particleAttractorLinear>();
+            var attractor = firework.GetComponentInChildren<particleAttractorLinear>();
             attractor.target = this.transform ;
 
             var bd = firework.AddComponent<Rigidbody2D>();
@@ -77,7 +77,7 @@ public class Atom : MonoBehaviour
 
     public float powerupduration = 5;
 
-    bool powerupEnabled = false;
+
     float poweruptimer = 0;
 
     public float extendPowerUpDuration = 0;
@@ -88,6 +88,26 @@ public class Atom : MonoBehaviour
     {
         Debug.Log("other tab" + other.gameObject.tag);
 
+        if (other.gameObject.tag == "PowerUp")
+        {
+            if (GameController.Instance.PowerupEnabled)
+            {
+                extendPowerUpDuration += powerupduration;
+            }
+            else
+            {
+
+                GameController.Instance.PowerupEnabled = true;
+
+                SpinController.Instance.EnableLightning(true);
+                // poweruptimer = Time.time + powerupduration;
+
+                StartCoroutine("DisablePowerUp");
+            }
+            GameObject.Destroy(other.gameObject);
+
+        }
+        else
         if (other.gameObject.tag == "Obstacle")
         {
             if (colorType == other.gameObject.GetComponent<ObstacleComponent>().colorType)
@@ -96,13 +116,15 @@ public class Atom : MonoBehaviour
 
                 ScoreManager.Instance.IncrementScore(100);
                 DoPassEffect(other.gameObject);
+                GameObject.Destroy(other.gameObject);
 
             }
             else
             {
-                if (powerupEnabled)
+                if (GameController.Instance.PowerupEnabled)
                 {
                     DoCrushEffect(other.gameObject);
+                    GameObject.Destroy(other.gameObject);
                 }
                 else
                 {
@@ -120,21 +142,8 @@ public class Atom : MonoBehaviour
               
             }
         }
-        else
-        if (other.gameObject.tag == "PowerUp" )
-        {
-            if (powerupEnabled)
-            {
-                extendPowerUpDuration += powerupduration;
-            }
 
-            powerupEnabled = true;
 
-            SpinController.Instance.EnableLightning(true);
-            // poweruptimer = Time.time + powerupduration;
-
-            StartCoroutine("DisablePowerUp");
-        }
     }
 
 
@@ -156,7 +165,7 @@ public class Atom : MonoBehaviour
 
         SpinController.Instance.EnableLightning(false);
 
-        powerupEnabled = false;
+        GameController.Instance.PowerupEnabled = false;
     }
 
 }
