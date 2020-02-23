@@ -49,9 +49,11 @@ public class SpinController : MonoSingleton<SpinController>
     public float currentAngle = 0;
 
     // Start is called before the first frame update
+
+    public float DesiredRange = 0;
     void Start()
     {
-        
+        DesiredRange = Range;
     }
 
     // Update is called once per frame
@@ -69,6 +71,7 @@ public class SpinController : MonoSingleton<SpinController>
         CameraObject.transform.position = new Vector3(CameraObject.transform.position.x, newY, CameraObject.transform.position.z);
 
 
+        
 
         // color change ???
         if (Atoms != null && Atoms.Count > 1)
@@ -81,6 +84,9 @@ public class SpinController : MonoSingleton<SpinController>
             float rangeY = Mathf.Abs(right.transform.position.z - left.transform.position.z);
 
             float range = Mathf.Sqrt(rangeX * rangeX + rangeY * rangeY);
+
+            
+
             if (range <= MinRangeAtomColorBlend)
             {
                 float dist = (1.0f - range / MinRangeAtomColorBlend);
@@ -140,14 +146,16 @@ public class SpinController : MonoSingleton<SpinController>
         float vx =   Input.GetAxis("Vertical") * vfactor * Time.deltaTime ;
         if (Mathf.Abs(Range) <= MaxAbsRange ||  (Range * vx < 0))
             Range += vx;
- 
 
+
+
+        var axis = Input.GetAxis("Horizontal");
 
 
         //if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) 
         {
             // normal movement
-            currentAngle += Mathf.Sin(Input.GetAxis("Horizontal")) * factor * Time.deltaTime / Range;
+            currentAngle += Mathf.Sin(axis) * factor * Time.deltaTime / Range;
 
 
             // velocity based controller attempt
@@ -157,7 +165,7 @@ public class SpinController : MonoSingleton<SpinController>
             // another range mechnaics
             //Range -= Mathf.Sin(Range) * GravityCollapseFactor * Time.deltaTime;
 
-            lastUserRotationSign = Mathf.Sin(Input.GetAxis("Horizontal"));
+            lastUserRotationSign = Mathf.Sin(axis);
         }
         //else
         {
@@ -175,6 +183,33 @@ public class SpinController : MonoSingleton<SpinController>
             //if (Mathf.Abs(Range) <= MaxAbsRange || rangeChange * Range < 0)
             //    Range +=
         }
+
+
+        if (axis != 0)
+        {
+            var diff = Mathf.Abs(DesiredRange - Range);
+            if (diff > 0)
+            {
+                diff = Mathf.Max(0.2f, diff);
+
+                currentAngle += -lastUserRotationSign * diff * Time.deltaTime;
+                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
+            }
+        }
+        else
+        {
+            //var diff = Mathf.Abs(DesiredRange - Range);
+            //if (diff > 0)
+            {
+                //diff = Mathf.Max(0.2f, diff);
+
+                currentAngle += -lastUserRotationSign * factor * Time.deltaTime;
+                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
+            }
+
+        }
+
+
 
 
         // velocity based controller..... >

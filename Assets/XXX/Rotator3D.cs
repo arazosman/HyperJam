@@ -17,6 +17,8 @@ public class Rotator3D : MonoBehaviour
 
 
         dir = Random.value > 0.5 ? -1 : 1;
+
+        transform.Rotate(new Vector3(0, 0, 360 *Random.value));
     }
 
     // Update is called once per frame

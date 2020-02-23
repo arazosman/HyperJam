@@ -15,7 +15,7 @@ public class RotatorZ : MonoBehaviour
         if (rgd)
             rgd.angularVelocity = Random.insideUnitSphere * 10;
 
-        
+        transform.Rotate(new Vector3(0, 360 * Random.value, 0));
     }
 
     // Update is called once per frame

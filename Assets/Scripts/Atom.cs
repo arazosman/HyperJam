@@ -139,25 +139,37 @@ public class Atom : MonoBehaviour
                 else
                 {
 
+                   // other.gameObject.activeInHierarchy
 
-                    var am = AudioManager.Instance;
-                    am.src.PlayOneShot(am.gameover);
+       
 
-                    DoExplodeEfecet(other.gameObject);
-                    GameController.Instance.GameOver = true;
+                    StartCoroutine(DestroyX(other.gameObject));
                 }
 
             }
         }
 
-
     }
 
 
-    public IEnumerator DoGameOver()
+
+    public IEnumerator DestroyX(GameObject obj)
     {
         yield return new WaitForSeconds(0.1f);
-        GameController.Instance.GameOver = true;
+
+        if (obj && obj.activeInHierarchy)
+        {
+            
+ 
+
+            var am = AudioManager.Instance;
+            am.src.PlayOneShot(am.gameover);
+
+            DoExplodeEfecet(obj);
+            GameController.Instance.GameOver = true;
+        }
+
+  
     }
 
 
