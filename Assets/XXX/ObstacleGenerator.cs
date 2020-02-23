@@ -95,7 +95,7 @@ public class ObstacleGenerator : MonoBehaviour
     {
         if (Time.time - respawnTimer   >= nextRespawnTime)
         {
-            Debug.Log("spawn time!!");
+            //Debug.Log("spawn time!!");
 
             spawnNewObstacle();
 
@@ -105,7 +105,7 @@ public class ObstacleGenerator : MonoBehaviour
 
         if (Time.time - powerUpTimer >= nextPowerUpTime)
         {
-            Debug.Log("Powerup time!!");
+            //Debug.Log("Powerup time!!");
 
             spawnNewPowerUp();
 

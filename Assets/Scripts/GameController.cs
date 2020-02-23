@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoSingleton<GameController>
 {
@@ -14,12 +15,24 @@ public class GameController : MonoSingleton<GameController>
 
 
 
+    public Slider PowerUpBar;
+
+
+
     private bool powerupEnabled = false;
+
+    public float extendPowerUpDuration = 0;
+
+    private int powerupCount = 0;
+    public  int powerupNeedCount = 5;
 
 
 
     public GameObject gameOverPanel;
     private bool gameOver = false;
+
+
+    float currentPowerUpDuration = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +74,105 @@ public class GameController : MonoSingleton<GameController>
             gameOverPanel.SetActive(true);
             Time.timeScale = 0;
         }
+
+        if (powerupEnabled)
+        {
+            currentPowerUpDuration -= Time.deltaTime;
+
+            if (currentPowerUpDuration <= 0)
+            {
+                powerupEnabled = false;
+                PowerUpBar.value = 0;
+
+ 
+               PowerupCount = 0;
+                SpinController.Instance.EnableLightning(false);
+
+            }
+            else
+            {
+                PowerUpBar.value = currentPowerUpDuration / powerupduration;
+                Debug.Log($" val {PowerUpBar.value}");
+            }
+
+        }
+        else
+        {
+            PowerUpBar.value = (float)PowerupCount / (float)powerupNeedCount;
+        }
     }
 
     public bool GameOver { get => gameOver; set => gameOver = value; }
-    public bool PowerupEnabled { get => powerupEnabled; set => powerupEnabled = value; }
+    public bool PowerupEnabled { get => powerupEnabled; set {
+
+ 
+            powerupEnabled = value;
+                
+                } }
+    public int PowerupCount { get => powerupCount; set
+        {
+            PowerUpBar.value = value;
+            powerupCount = value;
+
+        }
+    }
+
+
+    public float powerupduration = 10;
+
+
+    float remainSecs = 0;
+    public float PowerUpRemainSecs { get {
+
+            return remainSecs;
+        }
+        set
+        {
+            remainSecs = value;
+        } 
+    }
+
+    public void OnPowerUp(GameObject gameObject1, GameObject gameObject2)
+    {
+        if (PowerupEnabled)
+        {
+            //extendPowerUpDuration += powerupduration;
+            currentPowerUpDuration += powerupduration / powerupNeedCount;
+
+        }
+        else
+        {
+            PowerupCount++;
+            if (PowerupCount >= powerupNeedCount)
+            {
+                PowerupEnabled = true;
+
+                SpinController.Instance.EnableLightning(true);
+                currentPowerUpDuration = powerupduration;
+ 
+                //StartCoroutine("DisablePowerUp");
+            }
+        }
+
+    }
+
+    public IEnumerator DisablePowerUp()
+    {
+        yield return new WaitForSeconds(GameController.Instance.powerupduration);
+
+        var gc = GameController.Instance;
+
+        while (gc.extendPowerUpDuration != 0)
+        {
+            gc.extendPowerUpDuration = 0;
+            yield return new WaitForSeconds(gc.extendPowerUpDuration);
+        }
+
+        GameController.Instance.PowerupCount = 0;
+        SpinController.Instance.EnableLightning(false);
+
+        GameController.Instance.PowerupEnabled = false;
+
+        GameController.Instance.PowerUpRemainSecs = 0.0f;
+    }
 }

@@ -285,6 +285,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUp (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2477461078193923928, guid: c8a722f30098a1944a710c1cb6d853c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2479304872178844928, guid: c8a722f30098a1944a710c1cb6d853c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -571,7 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6685516, g: 0.25355998, b: 0.6981132, a: 1}
+  m_Color: {r: 0.9395558, g: 0.1462264, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -691,8 +696,12 @@ MonoBehaviour:
   nebula: {fileID: 1901087039}
   bigStars: {fileID: 1492054251}
   littleStars: {fileID: 2005577710}
+  PowerUpBar: {fileID: 1340457002}
+  extendPowerUpDuration: 0
+  powerupNeedCount: 3
   gameOverPanel: {fileID: 1417209253}
   levelFactor: 1
+  powerupduration: 10
 --- !u!1001 &630992184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -703,7 +712,7 @@ PrefabInstance:
     - target: {fileID: 6904150271093392580, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.26
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 6904150271093392580, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
@@ -713,7 +722,7 @@ PrefabInstance:
     - target: {fileID: 6904150271276379268, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.31
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 6904150272615338507, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
@@ -773,17 +782,17 @@ PrefabInstance:
     - target: {fileID: 6904150272615338508, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: PowerUpIntervalMin
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6904150272615338508, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: InitialPowerUpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6904150272615338508, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: PowerUpIntervalMax
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6904150272615338509, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
@@ -793,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 6904150272615338509, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.61
+      value: 9.04
       objectReference: {fileID: 0}
     - target: {fileID: 6904150272615338509, guid: 43b14c0d7cdaefe44bf673e52d87382f,
         type: 3}
@@ -6053,7 +6062,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 20}
+  m_SizeDelta: {x: 830, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1340457002
 MonoBehaviour:
@@ -6099,9 +6108,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 786778253}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
-  m_WholeNumbers: 1
-  m_Value: 10
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -40566,11 +40575,11 @@ MonoBehaviour:
   left: {fileID: 6795381869187460064}
   right: {fileID: 6795381868194022304}
   VerticalSpeedFactor: 5.43
-  Range: 2.28
+  Range: 2.73
   MaxAbsRange: 3.03
   GravityCollapseFactor: 5.1
   GravityExpandFactor: 8.5
-  factor: 29.82
+  factor: 35.01
   vfactor: 6.9
   BaseX: 0
   zAxisDivider: 2
@@ -40636,7 +40645,6 @@ MonoBehaviour:
     type: 3}
   LightningObjectPowerUp: {fileID: 1232432449}
   powerupduration: 5
-  extendPowerUpDuration: 0
 --- !u!58 &6795381868194022306
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -41026,7 +41034,6 @@ MonoBehaviour:
     type: 3}
   LightningObjectPowerUp: {fileID: 91970032686125495}
   powerupduration: 5
-  extendPowerUpDuration: 0
 --- !u!58 &6795381869187460066
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -41350,6 +41357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477461078193923928, guid: c8a722f30098a1944a710c1cb6d853c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2479304872178844928, guid: c8a722f30098a1944a710c1cb6d853c0,
         type: 3}

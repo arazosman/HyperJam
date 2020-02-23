@@ -23,7 +23,7 @@ public class ObstacleDestroyer : MonoBehaviour
         var obs =  col.gameObject.GetComponentInParent<Obstacle>();
 
         GameObject.Destroy(obs.gameObject);
-        Debug.Log($"bunu destroy edicem {obs.gameObject}");
+        //Debug.Log($"bunu destroy edicem {obs.gameObject}");
         //GameObject.Destroy(col.otherCollider.gameObject);
 
 

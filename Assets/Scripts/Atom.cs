@@ -75,35 +75,28 @@ public class Atom : MonoBehaviour
         }
     }
 
-    public float powerupduration = 5;
+    public float powerupduration = 15;
 
 
     float poweruptimer = 0;
 
-    public float extendPowerUpDuration = 0;
+
+   
 
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("other tab" + other.gameObject.tag);
+        //Debug.Log("other tab" + other.gameObject.tag);
+
+
+        var gc = GameController.Instance;
 
         if (other.gameObject.tag == "PowerUp")
         {
-            if (GameController.Instance.PowerupEnabled)
-            {
-                extendPowerUpDuration += powerupduration;
-            }
-            else
-            {
+            gc.OnPowerUp(this.gameObject, other.gameObject);
 
-                GameController.Instance.PowerupEnabled = true;
 
-                SpinController.Instance.EnableLightning(true);
-                // poweruptimer = Time.time + powerupduration;
-
-                StartCoroutine("DisablePowerUp");
-            }
             GameObject.Destroy(other.gameObject);
 
         }
@@ -112,7 +105,6 @@ public class Atom : MonoBehaviour
         {
             if (colorType == other.gameObject.GetComponent<ObstacleComponent>().colorType)
             {
-
 
                 ScoreManager.Instance.IncrementScore(100);
                 DoPassEffect(other.gameObject);
@@ -123,23 +115,17 @@ public class Atom : MonoBehaviour
             {
                 if (GameController.Instance.PowerupEnabled)
                 {
+                    ScoreManager.Instance.IncrementScore(300);
+
                     DoCrushEffect(other.gameObject);
                     GameObject.Destroy(other.gameObject);
                 }
                 else
                 {
-                    //Time.timeScale = 0;
                     DoExplodeEfecet(other.gameObject);
-
-                    //StartCoroutine("DoGameOver");
-
-                   
                     GameController.Instance.GameOver = true;
-                    
-                    
                 }
 
-              
             }
         }
 
@@ -149,23 +135,9 @@ public class Atom : MonoBehaviour
 
     public IEnumerator DoGameOver()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.1f);
         GameController.Instance.GameOver = true;
-
     }
-    public  IEnumerator DisablePowerUp()
-    {
-        yield return new WaitForSeconds(powerupduration);
 
-        while (extendPowerUpDuration != 0)
-        {
-            extendPowerUpDuration = 0;
-            yield return new WaitForSeconds(extendPowerUpDuration);
-        }
-
-        SpinController.Instance.EnableLightning(false);
-
-        GameController.Instance.PowerupEnabled = false;
-    }
 
 }
