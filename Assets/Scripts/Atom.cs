@@ -96,7 +96,10 @@ public class Atom : MonoBehaviour
         {
             DoPassEffect(other.gameObject);
             gc.OnPowerUp(this.gameObject, other.gameObject);
-           
+
+
+            var am = AudioManager.Instance;
+            am.src.PlayOneShot(am.powerup_pickup);
 
             GameObject.Destroy(other.gameObject);
 
@@ -106,6 +109,12 @@ public class Atom : MonoBehaviour
         {
             if (colorType == other.gameObject.GetComponent<ObstacleComponent>().colorType)
             {
+
+
+                var am = AudioManager.Instance;
+                am.src.PlayOneShot(am.pass);
+
+
                 DoPassEffect(other.gameObject);
                 ScoreManager.Instance.IncrementScore(100);
                 
@@ -116,13 +125,24 @@ public class Atom : MonoBehaviour
             {
                 if (GameController.Instance.PowerupEnabled)
                 {
+
                     ScoreManager.Instance.IncrementScore(300);
+
+                    var am = AudioManager.Instance;
+                    am.src.PlayOneShot(am.crush);
 
                     DoCrushEffect(other.gameObject);
                     GameObject.Destroy(other.gameObject);
+
+                  
                 }
                 else
                 {
+
+
+                    var am = AudioManager.Instance;
+                    am.src.PlayOneShot(am.gameover);
+
                     DoExplodeEfecet(other.gameObject);
                     GameController.Instance.GameOver = true;
                 }

@@ -88,8 +88,10 @@ public class GameController : MonoSingleton<GameController>
 
                 Bloom.settings.intensity = initialBloom;
 
+                MusicManager.Instance.powerUpSource.Stop();
 
-               PowerupCount = 0;
+
+                PowerupCount = 0;
                 SpinController.Instance.EnableLightning(false);
 
             }
@@ -152,6 +154,13 @@ public class GameController : MonoSingleton<GameController>
             PowerupCount++;
             if (PowerupCount >= powerupNeedCount)
             {
+
+                var am = AudioManager.Instance;
+                am.src.PlayOneShot(am.powerup_active);
+
+
+                MusicManager.Instance.powerUpSource.Play();
+
 
                 initialBloom = Bloom.settings.intensity;
 
