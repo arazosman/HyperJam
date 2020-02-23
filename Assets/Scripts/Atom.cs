@@ -94,8 +94,9 @@ public class Atom : MonoBehaviour
 
         if (other.gameObject.tag == "PowerUp")
         {
+            DoPassEffect(other.gameObject);
             gc.OnPowerUp(this.gameObject, other.gameObject);
-
+           
 
             GameObject.Destroy(other.gameObject);
 
@@ -105,9 +106,9 @@ public class Atom : MonoBehaviour
         {
             if (colorType == other.gameObject.GetComponent<ObstacleComponent>().colorType)
             {
-
-                ScoreManager.Instance.IncrementScore(100);
                 DoPassEffect(other.gameObject);
+                ScoreManager.Instance.IncrementScore(100);
+                
                 GameObject.Destroy(other.gameObject);
 
             }

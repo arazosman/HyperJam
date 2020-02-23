@@ -13,6 +13,8 @@ public class GameController : MonoSingleton<GameController>
     public ScrollerStatic bigStars;
     public ScrollerStatic littleStars;
 
+    public UnityStandardAssets.CinematicEffects.Bloom Bloom;
+
 
 
     public Slider PowerUpBar;
@@ -84,7 +86,9 @@ public class GameController : MonoSingleton<GameController>
                 powerupEnabled = false;
                 PowerUpBar.value = 0;
 
- 
+                Bloom.settings.intensity = initialBloom;
+
+
                PowerupCount = 0;
                 SpinController.Instance.EnableLightning(false);
 
@@ -121,6 +125,9 @@ public class GameController : MonoSingleton<GameController>
     public float powerupduration = 10;
 
 
+    private float initialBloom;
+
+
     float remainSecs = 0;
     public float PowerUpRemainSecs { get {
 
@@ -145,7 +152,14 @@ public class GameController : MonoSingleton<GameController>
             PowerupCount++;
             if (PowerupCount >= powerupNeedCount)
             {
-                PowerupEnabled = true;
+
+                initialBloom = Bloom.settings.intensity;
+
+                Bloom.settings.intensity = initialBloom * 2;
+
+               PowerupEnabled = true;
+
+                //initialCameraBloomIntecity
 
                 SpinController.Instance.EnableLightning(true);
                 currentPowerUpDuration = powerupduration;
