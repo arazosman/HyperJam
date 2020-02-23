@@ -11,7 +11,7 @@ public class ObstacleGenerator : MonoBehaviour
     public GameObject LeftBoundObject;
     public GameObject RightBoundObject;
 
-    public List<  GameObject> ObstacleList;
+    public List<GameObject> ObstacleList;
 
 
     public float RespawnIntervalMax = 3;

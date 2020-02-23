@@ -140,12 +140,16 @@ public class Atom : MonoBehaviour
                 {
 
                    // other.gameObject.activeInHierarchy
-                   if(this.transform.position.z <= 10.0)
+                   if(this.transform.position.z < 10.0)
                     {
+                        Debug.Log("destroy delayed");
+
                         StartCoroutine(DestroyX(other.gameObject));
 
                     }else
                     {
+                        Debug.Log("destroy Instant");
+
                         GameOver(other.gameObject);
                     }
 
