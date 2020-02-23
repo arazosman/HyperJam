@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6235476611989837935}
   - component: {fileID: 6235476611989837920}
-  - component: {fileID: 6235476611989837921}
   - component: {fileID: 6235476611989837922}
+  - component: {fileID: 6290688281447398692}
   m_Layer: 0
   m_Name: CiftTarafli
   m_TagString: Untagged
@@ -50,19 +50,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.21483362, y: 0.7563267, z: 1}
   m_Center: {x: 0.0406121, y: 0.12183666, z: 0}
---- !u!114 &6235476611989837921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6235476611989837923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0083d6f1fee8f1f408e18df007c6d117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoAssignLocation: 1
 --- !u!114 &6235476611989837922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +62,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f08d5773c0f184ead4ef8c23fc1fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6290688281447398692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235476611989837923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b93c6db81f79649a898e19040a8761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoAssignLocation: 1
 --- !u!1 &6235476612201300016
 GameObject:
   m_ObjectHideFlags: 0

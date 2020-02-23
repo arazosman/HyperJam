@@ -11,6 +11,12 @@ public class Obstacle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateLocation();
+    }
+
+
+    public virtual void UpdateLocation()
+    {
         if (autoAssignLocation)
         {
             var instance = ObstacleGenerator.Instance;
@@ -19,15 +25,14 @@ public class Obstacle : MonoBehaviour
             float y = instance.GetCurrentY();
             float z = instance.GetCurrentZ();
 
-            var  randX =  Random.Range(left, right);
+            var randX = Random.Range(left, right);
             this.transform.position = new Vector3(randX, y, z);
         }
         else
-        { 
-        
-        
-        }
+        {
 
+
+        }
     }
 
  

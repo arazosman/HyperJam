@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpinController : MonoBehaviour
+public class SpinController : MonoSingleton<SpinController>
 {
     public GameObject CameraObject;
 
@@ -14,6 +14,9 @@ public class SpinController : MonoBehaviour
 
     public GameObject left;
     public GameObject right;
+
+
+
 
 
 
@@ -134,17 +137,17 @@ public class SpinController : MonoBehaviour
 
 
         // ftf control range with some buttons ?
-        float vx = Input.GetAxis("Vertical") * vfactor * Time.deltaTime ;
+        float vx =   Input.GetAxis("Vertical") * vfactor * Time.deltaTime ;
         if (Mathf.Abs(Range) <= MaxAbsRange ||  (Range * vx < 0))
             Range += vx;
  
 
 
 
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) 
+        //if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) 
         {
             // normal movement
-            currentAngle += Input.GetAxis("Horizontal") * factor * Time.deltaTime / Range;
+            currentAngle += Mathf.Sin(Input.GetAxis("Horizontal")) * factor * Time.deltaTime / Range;
 
 
             // velocity based controller attempt
@@ -156,11 +159,11 @@ public class SpinController : MonoBehaviour
 
             lastUserRotationSign = Mathf.Sin(Input.GetAxis("Horizontal"));
         }
-        else
+        //else
         {
 
             // normal movement
-            currentAngle -= Mathf.Sin(Input.GetAxis("Horizontal")) * factor * Time.deltaTime / Range;
+        //    currentAngle -= Mathf.Sin(Input.GetAxis("Horizontal")) * factor * Time.deltaTime / Range;
 
 
             // velocity based controller attempt
@@ -222,4 +225,15 @@ public class SpinController : MonoBehaviour
 
 
     }
+
+
+    public void EnableLightning(bool value)
+    {
+        for (int i = 0; i < Atoms.Count; i++)
+        {
+            Atoms[i].GetComponent<Atom>().LightningObjectPowerUp.SetActive(value);
+        }
+    }
+
+
 }

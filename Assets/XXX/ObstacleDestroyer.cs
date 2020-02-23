@@ -19,8 +19,11 @@ public class ObstacleDestroyer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        GameObject.Destroy(col.gameObject);
-        
+
+        var obs =  col.gameObject.GetComponentInParent<Obstacle>();
+
+        GameObject.Destroy(obs.gameObject);
+        Debug.Log($"bunu destroy edicem {obs.gameObject}");
         //GameObject.Destroy(col.otherCollider.gameObject);
 
 

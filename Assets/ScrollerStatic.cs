@@ -41,7 +41,7 @@ public class ScrollerStatic : MonoBehaviour
         var val = speed * Time.deltaTime;
         var vecx = lowerObject.transform.InverseTransformPoint(lowerObject.transform.position);
         
-        Debug.Log($"BU {lowerObject.transform.localPosition} boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
+       /// Debug.Log($"BU {lowerObject.transform.localPosition} boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
 
 
 
@@ -60,7 +60,7 @@ public class ScrollerStatic : MonoBehaviour
        if (lowerObject.transform.localPosition.y <= -height/2 )
        {
        
-           Debug.Log("bir giris eylemi erceklesti");
+           ///Debug.Log("bir giris eylemi erceklesti");
        
            lowerObject.transform.position = new Vector3(lowerObject.transform.position.x,
                lowerObject.transform.position.y + 2* height,
@@ -73,7 +73,7 @@ public class ScrollerStatic : MonoBehaviour
        }else
        {
        
-           Debug.Log($"BU boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
+           //Debug.Log($"BU boyle mi l:{lowerObject.transform.position.y}  <=  pos:{ -height / 2}");
            
        }
 
