@@ -152,6 +152,31 @@ public class SpinController : MonoSingleton<SpinController>
         var axis = Input.GetAxis("Horizontal");
 
 
+        if (axis != 0)
+        {
+            var diff = Mathf.Abs(DesiredRange - Range);
+            if (diff > 0)
+            {
+                diff = Mathf.Max(0.2f, diff);
+
+                currentAngle += -lastUserRotationSign * diff * Time.deltaTime;
+                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
+            }
+        }
+        else
+        {
+            //var diff = Mathf.Abs(DesiredRange - Range);
+            //if (diff > 0)
+            {
+                //diff = Mathf.Max(0.2f, diff);
+
+                currentAngle += -lastUserRotationSign * factor * Time.deltaTime;
+                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
+            }
+
+        }
+
+
         //if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1) 
         {
             // normal movement
@@ -185,29 +210,7 @@ public class SpinController : MonoSingleton<SpinController>
         }
 
 
-        if (axis != 0)
-        {
-            var diff = Mathf.Abs(DesiredRange - Range);
-            if (diff > 0)
-            {
-                diff = Mathf.Max(0.2f, diff);
-
-                currentAngle += -lastUserRotationSign * diff * Time.deltaTime;
-                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
-            }
-        }
-        else
-        {
-            //var diff = Mathf.Abs(DesiredRange - Range);
-            //if (diff > 0)
-            {
-                //diff = Mathf.Max(0.2f, diff);
-
-                currentAngle += -lastUserRotationSign * factor * Time.deltaTime;
-                Range = Mathf.Lerp(Range, DesiredRange, Time.deltaTime);
-            }
-
-        }
+ 
 
 
 

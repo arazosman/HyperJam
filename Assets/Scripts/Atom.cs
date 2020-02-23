@@ -140,10 +140,16 @@ public class Atom : MonoBehaviour
                 {
 
                    // other.gameObject.activeInHierarchy
+                   if(this.transform.position.z <= 10.0)
+                    {
+                        StartCoroutine(DestroyX(other.gameObject));
 
-       
+                    }else
+                    {
+                        GameOver(other.gameObject);
+                    }
 
-                    StartCoroutine(DestroyX(other.gameObject));
+
                 }
 
             }
@@ -155,21 +161,24 @@ public class Atom : MonoBehaviour
 
     public IEnumerator DestroyX(GameObject obj)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.020f);
 
         if (obj && obj.activeInHierarchy)
         {
-            
- 
 
-            var am = AudioManager.Instance;
-            am.src.PlayOneShot(am.gameover);
-
-            DoExplodeEfecet(obj);
-            GameController.Instance.GameOver = true;
+            GameOver(obj);
         }
 
   
+    }
+
+    public void GameOver(GameObject obj)
+    {
+        var am = AudioManager.Instance;
+        am.src.PlayOneShot(am.gameover);
+
+        DoExplodeEfecet(obj);
+        GameController.Instance.GameOver = true;
     }
 
 
